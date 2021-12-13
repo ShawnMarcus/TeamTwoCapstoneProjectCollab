@@ -259,3 +259,67 @@ function ifRaining(weatherCode) {
     }
     return rain;
 }
+
+// Keeps Previous Searches in the Search Box
+function saveUserInput() {
+    localStorage.setItem("input", JSON.stringify(userInput));
+}
+
+function getUserInput() {
+    userInput = JSON.parse(localStorage.getItem("input")) || "";
+    stateParks();
+}
+
+function clearStorage() {
+    localStorage.clear();
+}
+
+// ---- FUNCTION CALLS ----
+onLoad();
+
+// ----- CLICK EVENTS ------
+$(document).on("click", ".imgOfPark", function () {
+    $("#parkList").hide();
+    $("#parkInfo").show();
+    $("#goBack").show();
+    let parkLat = $(this).data("lat");
+    let parkLon = $(this).data("lon");
+    let chosenPark = $(this).data("code");
+    console.log(chosenPark);
+    forecast(parkLat, parkLon);
+    choosePark(chosenPark);
+    getAlerts(chosenPark);
+});
+
+$("#add-park").on("click", function (event) {
+    event.preventDefault();
+    clear();
+    $("#parkList").show();
+    $("#parkInfo").hide();
+    userInput = $("#user-input").val().trim();
+    console.log(userInput);
+    stateParks();
+    $("#user-input").val("");
+    saveUserInput();
+    clearParkInfo();
+});
+
+$("#goBack").on("click", function () {
+    $("#parkInfo").hide();
+    $("#parkList").show();
+    clearParkInfo();
+    
+})
+
+let input = document.getElementById("user-input");
+
+// Execute a function when the user presses the "enter" key on the keyboard (instead of using a separate select button we are using this)
+input.addEventListener("keyup", function(event) {
+  // Number 13 is the "Enter" key on the keyboard
+  if (event.keyCode === 13) {
+    // Cancel the default action, if needed
+    event.preventDefault();
+    // Trigger the button element with a click
+    document.getElementById("add-park").click();
+  }
+});
