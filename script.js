@@ -163,3 +163,87 @@ function choosePark(chosenPark) {
         }
     })
 }
+
+// Alerts for Closures and COVID Details
+
+function getAlerts(chosenPark) {
+
+    if (!chosenPark) {
+        return false
+    }
+
+    let alertUrl = `https://developer.nps.gov/api/v1/alerts?parkCode=${chosenPark}&stateCode=${userInput}&api_key=HtphDBtSdwAKMfdRhxg6VcvTpgK8vRGyDRko6hx2`
+
+    $.ajax({
+        url: alertUrl,
+        method: "GET"
+    }).then(function (response) {
+        console.log(response);
+        let alerts = response.data
+        
+        for (let i = 0; i < alerts.length; i++) {
+            let alertDes = alerts[i].description;
+            let alertCat = alerts[i].category;
+            let alertTitle = alerts[i].title;
+
+            let alertHead = $(`<h6> ${alertTitle} </h6>`);
+            let alertSubhead = $(`<p> ${alertCat}</p>`);
+            let alertInfo = $(`<p> ${alertDes} </p>`);
+
+            $("#selectedAlerts").append(alertHead, alertSubhead, alertInfo);
+        }
+
+    })
+}
+
+// Weather!
+function forecast(parkLat, parkLon) {
+
+    if (!parkLat && !parkLon) {
+        return false;
+    }
+
+    let forecastUrl = `https://api.weatherbit.io/v2.0/forecast/daily?lon=${parkLon}&lat=${parkLat}&key=${apiKeyFore}&units=i&days=3`
+
+    $.ajax({
+        url: forecastUrl,
+        method: "GET"
+    }).then(function (response) {
+        let forecast = response.data
+        console.log(response)
+        let weatherDiv = $("<div class='wrapper container' id='weather'>");
+        let forecastDiv = $("<div class='row days center-align'>");
+        let cardDiv = $("<div class='col s12 offset-m1 center-align'>");
+
+        for (let i = 0; i < forecast.length; i++) {
+
+            let weatherCode = forecast[i].weather.code
+            console.log(weatherCode)
+            let weatherDes = forecast[i].weather.description
+            console.log(weatherDes)
+            let iconCode = forecast[i].weather.icon
+
+            let cardPanel = $("<div class = 'card-panel teal lighten-5 col s12 m3  center-align days'>");
+
+            let date = $(`<h6> ${moment.unix(forecast[i].ts).format("M/D/YY")} </h6> `);
+            let temp = $(`<p> Temperature: ${forecast[i].temp} &degF </p> `);
+            let icon = $(`<img>`)
+            icon.attr({
+                "src": `assets/icons/${iconCode}.png`,
+                "data-weatherCode": weatherCode
+            });
+
+
+            ifRaining(weatherCode, weatherDes);
+            cardPanel.append(date, temp, icon, rain);
+            cardDiv.append(cardPanel);
+            forecastDiv.append(cardDiv)
+            weatherDiv.append(forecastDiv)
+            $("#parkInfo").append(weatherDiv)
+
+
+        }
+
+    })
+
+}
