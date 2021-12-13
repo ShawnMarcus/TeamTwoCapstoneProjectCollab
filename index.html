@@ -33,40 +33,32 @@ ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <body>
 
     <!-- Big Image with Search Box-->
+
     <div class="row">
         <div class="column s12">
             <div class="mainImage">
                 <h1>
                     <a href="index.html">Adventure Awaits!</a>
                 </h1>
-
                 <div class="wrapper-1">
-
                     <input class="searchbtn" type="text" placeholder="Enter State Abbreviation Here" id="user-input">
                     <div class="searchbtn">
                         <i class="material-icons" id="add-park">search</i>
                     </div>
                     <a href="index.html" class="btn">Home</a>
-
-
-
                 </div>
             </div>
-            
-           
-                    
         </div>
-
     </div>
     <div class="look">
         <h4>Look at what you'll find...</h2>
             <img class="binoc" src="assets/looking.png" alt="Man looking through binoculars" id="see">
-            <button  id="goBack"> Back to Search Results</button>
+            <button id="goBack"> Back to Search Results</button>
     </div>
 
     <!-- Info Sections -->
-    <div class="row" id="appInfo">
 
+    <div class="row" id="appInfo">
 
         <div class="col s12 m4">
             <div class="card-content">
@@ -78,8 +70,6 @@ ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
                 </div>
             </div>
         </div>
-
-
         <div class="col s12 m4">
             <div class="card-content">
                 <div id="site-objectives">
@@ -90,7 +80,6 @@ ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
                 </div>
             </div>
         </div>
-
         <div class="col s12 m4">
             <div class="card-content">
                 <div id="site-objectives">
@@ -101,6 +90,74 @@ ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
                 </div>
             </div>
         </div>
+    </div>
+    </div>
 
+    <!-- SEARCH RESULTS -->
+
+    <div class="flex-container">
+        <div class="row" id="parkList">
+
+        </div>
     </div>
+
+    <!-- Individual Park Info -->
+
+    <div class="row" id="parkInfo">
+
+        <div id="selectedPark">
+            <h5 id="fullName"></h5>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <div class="card-content">
+                    <div id="selectedActivities">
+                        <span class="selectedTitle">Park Activities</span>
+                        <ol id="columns">
+
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <div class="card-content">
+                    <div id="selectedDirections">
+                        <span class="selectedTitle">Directions</span>
+                        <p id="directions"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="campInfo" class="row">
+            <div class="col s12">
+                <div class="card-content">
+                    <div id="selectedCampgrounds">
+                        <span class="selectedTitle">Campgrounds</span>
+                        <div id="campgrounds">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <div class="card-content">
+                    <div id="selectedAlerts">
+                        <span class="selectedTitle">Park Alerts</span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
