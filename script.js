@@ -247,3 +247,15 @@ function forecast(parkLat, parkLon) {
     })
 
 }
+
+// This SHOULD pull up TripAdvisor's API for alternate activities if the Weather API indicates bad weather.
+function ifRaining(weatherCode) {
+
+    if (weatherCode < 800) {
+        rain = `<p> Looks like the weather is not great. Look up other activities in the area?</p>
+        <p> <a href='https://www.tripadvisor.com' target='_blank'>Trip Advisor</a> </p>`
+    } else {
+        rain = "<p>The weather is great for an adventure!</p>";
+    }
+    return rain;
+}
